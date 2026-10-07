@@ -73,7 +73,19 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         await chrome.storage.session.set({ [durationKey]: expiryFromNow(s.unlockValue, s.unlockUnit) });
       }
       sendResponse({ ok: true });
+    } else if (message.type === "get-options-state") {
+      sendResponse({ hasPassword: Boolean(s.passwordHash) });
+    } else if (message.type === "load-settings") {
+      const valid = s.passwordHash ? await digest(message.currentPassword || "") === s.passwordHash : true;
+      if (!valid) { sendResponse({ ok: false, error: "Mật khẩu hiện tại không đúng." }); return; }
+      sendResponse({ ok: true, domains: s.domains, unlockValue: s.unlockValue, unlockUnit: s.unlockUnit, lockForever: s.lockForever });
     } else if (message.type === "save-settings") {
+      if (s.passwordHash && await digest(message.currentPassword || "") !== s.passwordHash) {
+        sendResponse({ ok: false, error: "Mật khẩu hiện tại không đúng." }); return;
+      }
+      if (!s.passwordHash && !message.password) {
+        sendResponse({ ok: false, error: "Cần tạo mật khẩu trước khi lưu." }); return;
+      }
       if (message.password) s.passwordHash = await digest(message.password);
       s.domains = message.domains;
       s.lockForever = Boolean(message.lockForever);
@@ -81,10 +93,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       s.unlockUnit = ["second", "minute", "hour", "day", "month", "year"].includes(message.unlockUnit) ? message.unlockUnit : "minute";
       await chrome.storage.local.set(s);
       sendResponse({ ok: true });
-    } else if (message.type === "load-settings") {
-      sendResponse({ domains: s.domains, unlockValue: s.unlockValue, unlockUnit: s.unlockUnit, lockForever: s.lockForever, hasPassword: Boolean(s.passwordHash) });
     }
   })().catch(() => sendResponse({ ok: false, error: "Có lỗi khi lưu hoặc kiểm tra cài đặt." }));
   return true;
 });
-
