@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cài đặt · Khóa Web</title><link rel="stylesheet" href="style.css"></head>
+<body class="settings-page">
+  <main class="layout">
+    <header class="topbar"><div class="brand-mark">K</div><div><div class="eyebrow">TIỆN ÍCH CHROME</div><h1>Khóa Web</h1></div><span class="status-pill"><i></i> Đang hoạt động</span></header>
+    <section class="intro"><div class="intro-icon">◉</div><div><h2>Tập trung vào điều quan trọng</h2><p>Chọn những trang muốn hạn chế. Khi mở, Chrome sẽ yêu cầu mật khẩu của bạn.</p></div></section>
+    <form id="settings-form">
+      <section class="panel"><div class="section-heading"><span class="step">01</span><div><h2>Trang web cần khóa</h2><p>Mỗi dòng một tên miền. Các tên miền con cũng được áp dụng.</p></div></div>
+        <label for="domains">Danh sách trang</label><textarea id="domains" rows="5" placeholder="youtube.com&#10;facebook.com&#10;reddit.com"></textarea><div class="helper">Chỉ cần nhập tên miền, không cần <code>https://</code>. Ví dụ: <code>youtube.com</code></div>
+      </section>
+      <section class="panel"><div class="section-heading"><span class="step">02</span><div><h2>Thời gian mở khóa</h2><p>Chọn thời gian trang được phép truy cập sau khi nhập đúng mật khẩu.</p></div></div>
+        <label class="toggle-row" for="forever"><span><strong>Luôn khóa</strong><small>Chỉ cho phép mở trang vừa nhập mật khẩu; lần điều hướng tiếp theo sẽ bị khóa lại.</small></span><input id="forever" type="checkbox"><span class="switch"></span></label>
+        <div id="duration-fields" class="duration-fields"><div><label for="duration-value">Thời lượng</label><input id="duration-value" type="number" min="1" max="999" value="15"></div><div><label for="duration-unit">Đơn vị</label><select id="duration-unit"><option value="second">Giây</option><option value="minute" selected>Phút</option><option value="hour">Giờ</option><option value="day">Ngày</option><option value="month">Tháng</option><option value="year">Năm</option></select></div></div>
+      </section>
+      <section class="panel"><div class="section-heading"><span class="step">03</span><div><h2>Mật khẩu</h2><p>Dùng mật khẩu để mở tạm thời các trang trong danh sách.</p></div></div>
+        <label for="password">Mật khẩu <span id="password-hint" class="label-hint"></span></label><input id="password" type="password" autocomplete="new-password" placeholder="Tạo mật khẩu lần đầu" minlength="1"><div class="helper" id="password-help">Hãy dùng mật khẩu khó đoán nhưng dễ nhớ.</div>
+      </section>
+      <div class="form-footer"><p id="status" role="status" aria-live="polite"></p><button id="save" type="submit"><span>Lưu cài đặt</span><span aria-hidden="true">→</span></button></div>
+    </form>
+    <footer>Khóa Web <span>·</span> Cài đặt được lưu trên trình duyệt này.</footer>
+  </main><script src="options.js"></script>
+</body></html>

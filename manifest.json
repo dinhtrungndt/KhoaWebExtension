@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Khóa trang bằng mật khẩu",
+  "version": "1.0.0",
+  "description": "Chặn các trang bạn chọn và yêu cầu mật khẩu để mở tạm thời.",
+  "permissions": ["storage", "webNavigation", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "options_page": "options.html"
+}
